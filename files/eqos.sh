@@ -24,6 +24,7 @@ start_qos() {
 	
 	tc qdisc add dev $dev ingress
 	tc filter add dev $dev parent ffff: protocol ip u32 match u32 0 0 flowid 1:1 action mirred egress redirect dev ${dev}-ifb
+        cp /etc/config/eqos /etc/config/usereqos
 }
 
 case "$1" in
@@ -57,4 +58,3 @@ case "$1" in
 		echo "  $0 start 30 20              # Total bandwidth: down 30Kbit/s up 20Kbit/s"
 		echo "  $0 add 192.168.22.12 10 2   # down 10Kbit/s  up 2Kbit/s"
 	;;
-esac
